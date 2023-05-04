@@ -324,6 +324,7 @@ namespace dxvk {
      * nicely with D3D11 without vendor libraries */
     { R"(\\Stray-Win64-Shipping\.exe$)", {{
       { "d3d11.ignoreGraphicsBarriers",     "True" },
+      { "setenv",                           "NAS_TONEMAP_C=clamp({inputColor} * float3x3( 0.2126 + 0.7874 * 1.5, 0.7152 - 0.7152 * 1.5, 0.0722 - 0.0722 * 1.5, 0.2126 - 0.2126 * 1.5, 0.7152 + 0.2848 * 1.5, 0.0722 - 0.0722 * 1.5, 0.2126 - 0.2126 * 1.5, 0.7152 - 0.7152 * 1.5, 0.0722 + 0.9278 * 1.5 ) * 2 - float3(0.28, 0.2, 0.16), 0.0, 1.0)" },     
     }} },
     /* Metal Gear Solid V: Ground Zeroes          *
      * Texture quality can break at high vram     */
@@ -979,9 +980,16 @@ namespace dxvk {
       // Inform the user that we loaded a default config
       Logger::info(str::format("Found built-in config:"));
 
-      for (auto& pair : appConfig->second.m_options)
+      for (auto& pair : appConfig->second.m_options) {
         Logger::info(str::format("  ", pair.first, " = ", pair.second));
-
+        
+        Logger::info("Checking config:");
+        if(pair.first == "setenv") {
+          Logger::info(str::format("Set Env: ", pair.second));
+          env::setEnvVar(pair.second.c_str());
+          Logger::info(str::format("Get Env: NAS_C=", env::getEnvVar("NAS_C")));
+        }
+      }
       return appConfig->second;
     }
 

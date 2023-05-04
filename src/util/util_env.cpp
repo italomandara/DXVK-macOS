@@ -1,5 +1,6 @@
 #include <array>
 #include <cstdlib>
+#include <iostream>
 #include <filesystem>
 #include <numeric>
 
@@ -26,6 +27,16 @@ namespace dxvk::env {
 #else
     const char* result = std::getenv(name);
     return result ? result : "";
+#endif
+  }
+
+  void setEnvVar(const char* env) {
+#ifdef _WIN32
+    putenv(env);
+    return;
+#else
+    putenv(env);
+    return;
 #endif
   }
 

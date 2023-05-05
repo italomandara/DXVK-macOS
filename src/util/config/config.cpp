@@ -985,9 +985,17 @@ namespace dxvk {
         
         Logger::info("Checking config:");
         if(pair.first == "setenv") {
-          Logger::info(str::format("Set Env: ", pair.second));
-          env::setEnvVar(pair.second.c_str());
-          Logger::info(str::format("Get Env: NAS_C=", env::getEnvVar("NAS_C")));
+          size_t separator = pair.second.find('=');
+          if (separator == std::string::npos) {
+            // handle error, separator not found
+          } else {
+            // split input string into two separate strings
+            std::string name = pair.second.substr(0, separator);
+            std::string value = pair.second.substr(separator + 1);
+            Logger::info(str::format("Set Env: ", pair.second));
+            env::setEnvVar(name.c_str(), value.c_str());
+            Logger::info(str::format("Get Env: NAS_C=", env::getEnvVar("NAS_C")));
+          }
         }
       }
       return appConfig->second;

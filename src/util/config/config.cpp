@@ -992,7 +992,7 @@ namespace dxvk {
             // split input string into two separate strings
             std::string name = pair.second.substr(0, separator);
             std::string value = pair.second.substr(separator + 1);
-            Logger::info(str::format("Set Env: ", pair.second));
+            Logger::info(str::format("Set Env: ", name, "=", value));
             env::setEnvVar(name.c_str(), value.c_str());
             Logger::info(str::format("Get Env: NAS_C=", env::getEnvVar("NAS_C")));
           }

@@ -28,7 +28,7 @@ namespace dxvk::env {
    */
   std::string getEnvVar(const char* name);
 
-  using wineSetUnixEnv_proc = int (STDMETHODCALLTYPE *)(const char *, const char *);
+  using wineSetUnixEnv_proc = extern void (CDECL *)(const char *, const char *);
     /**
    * \brief Sets environment variable
    * 

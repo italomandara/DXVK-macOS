@@ -33,14 +33,12 @@ namespace dxvk::env {
   void setEnvVar(const char* name, const char* value) {
 #ifdef _WIN32
     wineSetUnixEnv_proc wineSetUnixEnv = nullptr;
-    HMODULE ntdll = LoadLibrary("ntdll.dll");
+    
+    HMODULE ntdll = GetModuleHandleA("ntdll.dll");
     if(ntdll) {
       wineSetUnixEnv = reinterpret_cast<wineSetUnixEnv_proc>(GetProcAddress(ntdll, "__wine_set_unix_env"));
       wineSetUnixEnv(name, value);
-    } else {
-      printf("couldn't call __wine_set_unix_env");
     }
-    FreeLibrary(ntdll);
     return;
 #else
     setenv(name, value);

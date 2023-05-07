@@ -13,9 +13,11 @@
 
 #include "./com/com_include.h"
 
-namespace dxvk::env {
+namespace dxvk::env
+{
 
-  std::string getEnvVar(const char* name) {
+  std::string getEnvVar(const char *name)
+  {
 #ifdef _WIN32
     std::vector<WCHAR> result;
     result.resize(MAX_PATH + 1);
@@ -25,16 +27,23 @@ namespace dxvk::env {
 
     return str::fromws(result.data());
 #else
-    const char* result = std::getenv(name);
+    const char *result = std::getenv(name);
     return result ? result : "";
 #endif
   }
 
-  void setEnvVar(const char* name, const char* value) {
+  void setEnvVar(const char *name, const char *value)
+  {
 #ifdef _WIN32
     HMODULE ntdll = GetModuleHandleA("ntdll.dll");
-    if(ntdll) {
+    if (ntdll)
+    {
       wineSetUnixEnv_proc wineSetUnixEnv = reinterpret_cast<wineSetUnixEnv_proc>(GetProcAddress(ntdll, "__wine_set_unix_env"));
+      if (wineSetUnixEnv == NULL)
+      {
+        fprintf(stderr, "wineSetUnixEnv(): Failed to get function address\n");
+        return;
+      }
       wineSetUnixEnv(name, value);
     }
     return;
@@ -44,35 +53,36 @@ namespace dxvk::env {
 #endif
   }
 
-
-  size_t matchFileExtension(const std::string& name, const char* ext) {
+  size_t matchFileExtension(const std::string &name, const char *ext)
+  {
     auto pos = name.find_last_of('.');
 
     if (pos == std::string::npos)
       return pos;
 
     bool matches = std::accumulate(name.begin() + pos + 1, name.end(), true,
-      [&ext] (bool current, char a) {
-        if (a >= 'A' && a <= 'Z')
-          a += 'a' - 'A';
-        return current && *ext && a == *(ext++);
-      });
+                                   [&ext](bool current, char a)
+                                   {
+                                     if (a >= 'A' && a <= 'Z')
+                                       a += 'a' - 'A';
+                                     return current && *ext && a == *(ext++);
+                                   });
 
     return matches ? pos : std::string::npos;
   }
 
-
-  std::string getExeName() {
+  std::string getExeName()
+  {
     std::string fullPath = getExePath();
     auto n = fullPath.find_last_of(env::PlatformDirSlash);
-    
+
     return (n != std::string::npos)
-      ? fullPath.substr(n + 1)
-      : fullPath;
+               ? fullPath.substr(n + 1)
+               : fullPath;
   }
 
-
-  std::string getExeBaseName() {
+  std::string getExeBaseName()
+  {
     auto exeName = getExeName();
 #ifdef _WIN32
     auto extp = matchFileExtension(exeName, "exe");
@@ -84,8 +94,8 @@ namespace dxvk::env {
     return exeName;
   }
 
-
-  std::string getExePath() {
+  std::string getExePath()
+  {
 #if defined(_WIN32)
     std::vector<WCHAR> exePath;
     exePath.resize(MAX_PATH + 1);
@@ -102,16 +112,17 @@ namespace dxvk::env {
     return std::string(exePath.begin(), exePath.begin() + count);
 #endif
   }
-  
-  
-  void setThreadName(const std::string& name) {
+
+  void setThreadName(const std::string &name)
+  {
 #ifdef _WIN32
-    using SetThreadDescriptionProc = HRESULT (WINAPI *) (HANDLE, PCWSTR);
+    using SetThreadDescriptionProc = HRESULT(WINAPI *)(HANDLE, PCWSTR);
 
     static auto proc = reinterpret_cast<SetThreadDescriptionProc>(
-      ::GetProcAddress(::GetModuleHandleW(L"kernel32.dll"), "SetThreadDescription"));
+        ::GetProcAddress(::GetModuleHandleW(L"kernel32.dll"), "SetThreadDescription"));
 
-    if (proc != nullptr) {
+    if (proc != nullptr)
+    {
       auto wideName = std::vector<WCHAR>(name.length() + 1);
       str::tows(name.c_str(), wideName.data(), wideName.size());
       (*proc)(::GetCurrentThread(), wideName.data());
@@ -123,8 +134,8 @@ namespace dxvk::env {
 #endif
   }
 
-
-  bool createDirectory(const std::string& path) {
+  bool createDirectory(const std::string &path)
+  {
 #ifdef _WIN32
     WCHAR widePath[MAX_PATH];
     str::tows(path.c_str(), widePath);
@@ -133,5 +144,5 @@ namespace dxvk::env {
     return std::filesystem::create_directories(path);
 #endif
   }
-  
+
 }

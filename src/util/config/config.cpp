@@ -326,6 +326,16 @@ namespace dxvk {
       { "d3d11.ignoreGraphicsBarriers",     "True" },
       { "setenv",                           "NAS_TONEMAP_C=clamp({inputColor} * float3x3( 0.2126 + 0.7874 * 1.5, 0.7152 - 0.7152 * 1.5, 0.0722 - 0.0722 * 1.5, 0.2126 - 0.2126 * 1.5, 0.7152 + 0.2848 * 1.5, 0.0722 - 0.0722 * 1.5, 0.2126 - 0.2126 * 1.5, 0.7152 - 0.7152 * 1.5, 0.0722 + 0.9278 * 1.5 ) * 2 - float3(0.28, 0.2, 0.16), 0.0, 1.0)" },     
     }} },
+    { R"(\\(CrashBandicoot4|AT-Win64-Shipping|Ghostrunner|LittleNightmares|SamuraiShodown|SoulcaliburVI|starwarsjedifallenorder|Tekken 7|TheCrew|SonsOfTheForest|SunsetOverdrive|CrabChampions|FinchGame)\.exe$)", {{
+      { "setenv",                           "MVK_CONFIG_FAST_MATH_ENABLED=0"},
+    }} },
+    { R"(\\StreetFighterV\.exe$)", {{
+      { "setenv",                           "MVK_CONFIG_FAST_MATH_ENABLED=0"},
+      { "setenv",                           "NAS_TONEMAP_C=0"},
+    }} },
+    { R"(\\(re(2|3)|DevilMayCry5)\.exe$)", {{
+      { "setenv",                           "MVK_ENABLE_EXPLICIT_LOD_WORKAROUND=0"},
+    }} },
     /* Metal Gear Solid V: Ground Zeroes          *
      * Texture quality can break at high vram     */
     { R"(\\MgsGroundZeroes\.exe$)", {{

@@ -25,6 +25,7 @@ namespace dxvk {
     /* Elite Dangerous: Compiles weird shaders    *
      * when running on AMD hardware               */
     { R"(\\EliteDangerous64\.exe$)", {{
+      { "d3d11.ignoreGraphicsBarriers",     "True" },
       { "dxgi.customVendorId",              "10de" },
     }} },
     /* The Vanishing of Ethan Carter Redux        */
@@ -88,10 +89,12 @@ namespace dxvk {
     /* Resident Evil 2/3: Ignore WaW hazards      */
     { R"(\\re(2|3|3demo)\.exe$)", {{
       { "d3d11.relaxedBarriers",            "True" },
+      { "setenv",                           "MVK_ENABLE_EXPLICIT_LOD_WORKAROUND=0"},
     }} },
     /* Devil May Cry 5                            */
     { R"(\\DevilMayCry5\.exe$)", {{
       { "d3d11.relaxedBarriers",            "True" },
+      { "setenv",                           "MVK_ENABLE_EXPLICIT_LOD_WORKAROUND=0"},
     }} },
     /* Call of Duty WW2                           */
     { R"(\\s2_sp64_ship\.exe$)", {{
@@ -326,15 +329,32 @@ namespace dxvk {
       { "d3d11.ignoreGraphicsBarriers",     "True" },
       { "setenv",                           "NAS_TONEMAP_C=clamp({inputColor} * float3x3( 0.2126 + 0.7874 * 1.5, 0.7152 - 0.7152 * 1.5, 0.0722 - 0.0722 * 1.5, 0.2126 - 0.2126 * 1.5, 0.7152 + 0.2848 * 1.5, 0.0722 - 0.0722 * 1.5, 0.2126 - 0.2126 * 1.5, 0.7152 - 0.7152 * 1.5, 0.0722 + 0.9278 * 1.5 ) * 2 - float3(0.28, 0.2, 0.16), 0.0, 1.0)" },     
     }} },
-    { R"(\\(CrashBandicoot4|AT-Win64-Shipping|Ghostrunner|LittleNightmares|SamuraiShodown|SoulcaliburVI|starwarsjedifallenorder|Tekken 7|TheCrew|SonsOfTheForest|SunsetOverdrive|CrabChampions|FinchGame)\.exe$)", {{
+    { R"(\\(CrashBandicoot4|AT-Win64-Shipping|Ghostrunner|LittleNightmares|SamuraiShodown|SamuraiShodown-Win64-Shipping|SoulcaliburVI|starwarsjedifallenorder|SwGame-Win64-Shipping|TheCrew|SonsOfTheForest|SunsetOverdrive|CrabChampions|FinchGame)\.exe$)", {{
+      { "d3d11.ignoreGraphicsBarriers",     "True" },
       { "setenv",                           "MVK_CONFIG_FAST_MATH_ENABLED=0"},
+    }} },
+    { R"(\\Biomutant-Win64-Shipping\.exe$)", {{
+      { "d3d11.ignoreGraphicsBarriers",     "True" },
+      { "setenv",                           "NAS_TONEMAP_C=clamp({inputColor} * float3x3( 0.2126 + 0.7874 * 2.5, 0.7152 - 0.7152 * 2.5, 0.0722 - 0.0722 * 2.5, 0.2126 - 0.2126 * 2.5, 0.7152 + 0.2848 * 2.5, 0.0722 - 0.0722 * 2.5, 0.2126 - 0.2126 * 2.5, 0.7152 - 0.7152 * 2.5, 0.0722 + 0.9278 * 2.5 ) * 2.5 - float3(0.7, 0.7, 0.7), 0.0, 1.0)"},
     }} },
     { R"(\\StreetFighterV\.exe$)", {{
-      { "setenv",                           "MVK_CONFIG_FAST_MATH_ENABLED=0"},
+      { "d3d11.ignoreGraphicsBarriers",     "True" },
       { "setenv",                           "NAS_TONEMAP_C=0"},
     }} },
-    { R"(\\(re(2|3)|DevilMayCry5)\.exe$)", {{
-      { "setenv",                           "MVK_ENABLE_EXPLICIT_LOD_WORKAROUND=0"},
+    { R"(\\GGST-Win64-Shipping\.exe$)", {{
+      { "d3d11.ignoreGraphicsBarriers",     "True" },
+      { "setenv",                           "NAS_TONEMAP_C=clamp({inputColor} * float3x3( 0.2126 + 0.7874 * 1.5, 0.7152 - 0.7152 * 1.5, 0.0722 - 0.0722 * 1.5, 0.2126 - 0.2126 * 1.5, 0.7152 + 0.2848 * 1.5, 0.0722 - 0.0722 * 1.5, 0.2126 - 0.2126 * 1.5, 0.7152 - 0.7152 * 1.5, 0.0722 + 0.9278 * 1.5 ) * 2 - float3(0.3, 0.3, 0.3), 0.0, 1.0)"},
+    }} },
+    { R"(\\PlaugeProject-Wine64-Shipping\.exe$)", {{
+      { "d3d11.ignoreGraphicsBarriers",     "True" },
+    }} },
+    { R"(\\OmegaStrikers-Win64-Shipping\.exe$)", {{
+      { "setenv",                           "NAS_TONEMAP_C=clamp({inputColor} * float3x3( 0.2126 + 0.7874 * 1.2, 0.7152 - 0.7152 * 1.2, 0.0722 - 0.0722 * 1.2, 0.2126 - 0.2126 * 1.2, 0.7152 + 0.2848 * 1.2, 0.0722 - 0.0722 * 1.2, 0.2126 - 0.2126 * 1.2, 0.7152 - 0.7152 * 1.2, 0.0722 + 0.9278 * 1.2 ) * 2 - float3(0.4, 0.4, 0.4), 0.0, 1.0)"},
+    }} },
+    { R"(\\Borderlands3\.exe$)", {{
+      { "d3d11.ignoreGraphicsBarriers",     "True" },
+      { "setenv",                           "MVK_CONFIG_FAST_MATH_ENABLED=0"},
+      { "setenv",                           "NAS_TONEMAP_C=0"},
     }} },
     /* Metal Gear Solid V: Ground Zeroes          *
      * Texture quality can break at high vram     */

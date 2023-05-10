@@ -331,7 +331,6 @@ namespace dxvk {
     }} },
     { R"(\\(CrashBandicoot4|AT-Win64-Shipping|Ghostrunner|LittleNightmares|SamuraiShodown|SamuraiShodown-Win64-Shipping|SoulcaliburVI|starwarsjedifallenorder|SwGame-Win64-Shipping|TheCrew|SonsOfTheForest|SunsetOverdrive|CrabChampions|FinchGame)\.exe$)", {{
       { "d3d11.ignoreGraphicsBarriers",     "True" },
-      { "setenv",                           "MVK_CONFIG_FAST_MATH_ENABLED=0"},
     }} },
     { R"(\\Biomutant-Win64-Shipping\.exe$)", {{
       { "d3d11.ignoreGraphicsBarriers",     "True" },
@@ -353,7 +352,6 @@ namespace dxvk {
     }} },
     { R"(\\Borderlands3\.exe$)", {{
       { "d3d11.ignoreGraphicsBarriers",     "True" },
-      { "setenv",                           "MVK_CONFIG_FAST_MATH_ENABLED=0"},
       { "setenv",                           "NAS_TONEMAP_C=0"},
     }} },
     /* Metal Gear Solid V: Ground Zeroes          *

@@ -1012,10 +1012,10 @@ namespace dxvk {
         Logger::info(str::format("  ", pair.first, " = ", pair.second));
         
         Logger::info("Checking config:");
-        if(pair.first == "setenv") {
+        if(pair.first == "setenv" && env::getEnvVar("CXPATCHER_SKIP_DXVK_ENV") != "1") {
           size_t separator = pair.second.find('=');
           if (separator == std::string::npos) {
-            // handle error, separator not found
+            Logger::err(str::format("Invalid env variable"));
           } else {
             // split input string into two separate strings
             std::string name = pair.second.substr(0, separator);

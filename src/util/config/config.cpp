@@ -327,10 +327,23 @@ namespace dxvk {
      * nicely with D3D11 without vendor libraries */
     { R"(\\Stray-Win64-Shipping\.exe$)", {{
       { "d3d11.ignoreGraphicsBarriers",     "True" },
+      { "d3d11.cachedDynamicResources",     "c"    },
       { "setenv",                           "NAS_TONEMAP_C=clamp({inputColor} * float3x3( 0.2126 + 0.7874 * 1.5, 0.7152 - 0.7152 * 1.5, 0.0722 - 0.0722 * 1.5, 0.2126 - 0.2126 * 1.5, 0.7152 + 0.2848 * 1.5, 0.0722 - 0.0722 * 1.5, 0.2126 - 0.2126 * 1.5, 0.7152 - 0.7152 * 1.5, 0.0722 + 0.9278 * 1.5 ) * 2 - float3(0.28, 0.2, 0.16), 0.0, 1.0)" },     
     }} },
     { R"(\\(CrashBandicoot4|AT-Win64-Shipping|Ghostrunner|LittleNightmares|SamuraiShodown|SamuraiShodown-Win64-Shipping|SoulcaliburVI|starwarsjedifallenorder|SwGame-Win64-Shipping|TheCrew|SonsOfTheForest|SunsetOverdrive|CrabChampions|FinchGame)\.exe$)", {{
       { "d3d11.ignoreGraphicsBarriers",     "True" },
+      { "d3d11.cachedDynamicResources",     "c"    },
+    }} },
+    { R"(\\SW3\.exe$)", {{
+      { "d3d11.ignoreGraphicsBarriers",     "True" },
+      { "d3d11.cachedDynamicResources",     "c"    },
+      { "dxvk.enableAsync",                 "True" },
+    }} },
+    { R"(\\(SanAndreas|ViceCity|LibertyCity)\.exe$)", {{
+      { "setenv",                           "NAS_TONEMAP_C=clamp({inputColor} * float3x3( 0.2126 + 0.7874 * 1.5, 0.7152 - 0.7152 * 1.5, 0.0722 - 0.0722 * 1.5, 0.2126 - 0.2126 * 1.5, 0.7152 + 0.2848 * 1.5, 0.0722 - 0.0722 * 1.5, 0.2126 - 0.2126 * 1.5, 0.7152 - 0.7152 * 1.5, 0.0722 + 0.9278 * 1.5 ) * 1.7 - 0.15, 0.0, 1.0)" },
+    }} },
+    { R"(\\Warframe\.x64\.exe$)", {{
+        { "dxvk.enableAsync",                 "True" },
     }} },
     { R"(\\Biomutant-Win64-Shipping\.exe$)", {{
       { "d3d11.ignoreGraphicsBarriers",     "True" },
@@ -353,6 +366,10 @@ namespace dxvk {
     { R"(\\Borderlands3\.exe$)", {{
       { "d3d11.ignoreGraphicsBarriers",     "True" },
       { "setenv",                           "NAS_TONEMAP_C=0"},
+    }} },
+    { R"(\\Indiana-Win64-Shipping\.exe$)", {{
+      { "d3d11.ignoreGraphicsBarriers",     "True" },
+      { "setenv",                           "NAS_TONEMAP_C=clamp({inputColor} * float3x3( 0.2126 + 0.7874 * 1.22, 0.7152 - 0.7152 * 1.22, 0.0722 - 0.0722 * 1.22, 0.2126 - 0.2126 * 1.22, 0.7152 + 0.2848 * 1.22, 0.0722 - 0.0722 * 1.22, 0.2126 - 0.2126 * 1.22, 0.7152 - 0.7152 * 1.22, 0.0722 + 0.9278 * 1.25 ) * 2.2 - float3(0.46, 0.54, 0.60), 0.0, 1.0)"},
     }} },
     /* Metal Gear Solid V: Ground Zeroes          *
      * Texture quality can break at high vram     */
@@ -740,6 +757,9 @@ namespace dxvk {
     { R"(\\witcher\.exe$)", {{
       { "d3d9.apitraceMode",              "True" },
     }} },
+    { R"(\\witcher3\.exe$)", {{
+      { "setenv",                           "NAS_DISABLE_UE4_HACK=1" }
+    }} },
     /* Hammer World Editor                      */
     { R"(\\(hammer(plusplus)?|mallet|wc)\.exe$)", {{
       { "d3d9.apitraceMode",                "True" },
@@ -786,6 +806,7 @@ namespace dxvk {
     /* Skyrim: Special Edition                 */
     { R"(\\SkyrimSE\.exe$)", {{
       { "dxvk.enableAsync",                 "True" },
+      { "setenv",                           "NAS_DISABLE_UE4_HACK=1" }
     }} },
     /* Genshin Impact                          */
     { R"(\\(YuanShen|GenshinImpact)\.exe$)", {{

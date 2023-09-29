@@ -285,9 +285,10 @@ namespace dxvk {
     { R"(\\GoW\.exe$)", {{
       { "d3d11.ignoreGraphicsBarriers",     "True" },
       { "d3d11.relaxedBarriers",            "True" },
-      { "dxgi.nvapiHack",                   "False" },
+      { "dxgi.nvapiHack",                   "False"},
       { "dxgi.maxFrameLatency",             "1"    },
       { "dxvk.enableAsync",                 "True" },
+      { "d3d11.maxFeatureLevel",             "11_1"},
     }} },
     /* AoE 2 DE - runs poorly for some users      */
     { R"(\\AoE2DE_s\.exe$)", {{

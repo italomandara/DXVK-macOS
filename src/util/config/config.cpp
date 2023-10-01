@@ -89,12 +89,14 @@ namespace dxvk {
     /* Resident Evil 2/3: Ignore WaW hazards      */
     { R"(\\re(2|3|3demo)\.exe$)", {{
       { "d3d11.relaxedBarriers",            "True" },
-      { "setenv",                           "MVK_ENABLE_EXPLICIT_LOD_WORKAROUND=0"},
     }} },
     /* Devil May Cry 5                            */
     { R"(\\DevilMayCry5\.exe$)", {{
       { "d3d11.relaxedBarriers",            "True" },
-      { "setenv",                           "MVK_ENABLE_EXPLICIT_LOD_WORKAROUND=0"},
+    }} },
+    { R"(\\Titanfall(2|2_Trial)\.exe$)", {{
+      { "d3d11.relaxedBarriers",            "True" },
+      { "setenv",                           "NAS_DISABLE_UE4_HACK=1"},
     }} },
     /* Call of Duty WW2                           */
     { R"(\\s2_sp64_ship\.exe$)", {{
